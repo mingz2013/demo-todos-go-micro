@@ -61,7 +61,7 @@ services:
     build: ./web/todos
     command: --registry_address=consul:8500
     ports:
-    - 50051:50051
+    - 50052:50052
     links:
     - consul
     - todos-srv
@@ -73,7 +73,7 @@ services:
     build: ./srv/todos
     command: --registry_address=consul:8500
     ports:
-    - 50051:50051
+    - 50053:50053
     links:
     - redis
     - mongo
