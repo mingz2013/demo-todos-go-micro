@@ -4,10 +4,10 @@ import (
 	"github.com/micro/go-log"
 
 	"github.com/micro/go-micro"
-	"todos/client"
-	"todos/handler"
+	"github.com/mingz2013/demo-todos-go-micro/api/todos/client"
+	"github.com/mingz2013/demo-todos-go-micro/api/todos/handler"
 
-	example "todos/proto/example"
+	pb "github.com/mingz2013/demo-todos-go-micro/api/todos/proto/todos"
 )
 
 func main() {
@@ -20,11 +20,11 @@ func main() {
 	// Initialise service
 	service.Init(
 		// create wrap for the Example srv client
-		micro.WrapHandler(client.ExampleWrapper(service)),
+		micro.WrapHandler(client.TodosWrapper(service)),
 	)
 
 	// Register Handler
-	example.RegisterExampleHandler(service.Server(), new(handler.Example))
+	pb.RegisterTodosHandler(service.Server(), new(handler.Todos))
 
 	// Run service
 	if err := service.Run(); err != nil {

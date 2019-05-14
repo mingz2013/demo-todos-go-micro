@@ -3,10 +3,9 @@ package main
 import (
 	"github.com/micro/go-log"
 	"github.com/micro/go-micro"
-	"todos/handler"
-	"todos/subscriber"
-
-	example "todos/proto/example"
+	"github.com/mingz2013/demo-todos-go-micro/srv/todos/handler"
+	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
+	"github.com/mingz2013/demo-todos-go-micro/srv/todos/subscriber"
 )
 
 func main() {
@@ -20,7 +19,7 @@ func main() {
 	service.Init()
 
 	// Register Handler
-	example.RegisterExampleHandler(service.Server(), new(handler.Example))
+	pb.RegisterTodosHandler(service.Server(), new(handler.Todos))
 
 	// Register Struct as Subscriber
 	micro.RegisterSubscriber("go.micro.srv.todos", service.Server(), new(subscriber.Example))

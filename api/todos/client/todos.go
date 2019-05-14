@@ -3,22 +3,22 @@ package client
 import (
 	"context"
 
-	example "github.com/micro/examples/template/srv/proto/example"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/server"
+	pb "github.com/mingz2013/demo-todos-go-micro/api/todos/proto/todos"
 )
 
 type exampleKey struct{}
 
 // FromContext retrieves the client from the Context
-func ExampleFromContext(ctx context.Context) (example.ExampleService, bool) {
-	c, ok := ctx.Value(exampleKey{}).(example.ExampleService)
+func TodosFromContext(ctx context.Context) (pb.TodosService, bool) {
+	c, ok := ctx.Value(exampleKey{}).(pb.TodosService)
 	return c, ok
 }
 
 // Client returns a wrapper for the ExampleClient
-func ExampleWrapper(service micro.Service) server.HandlerWrapper {
-	client := example.NewExampleService("go.micro.srv.template", service.Client())
+func TodosWrapper(service micro.Service) server.HandlerWrapper {
+	client := pb.NewTodosService("go.micro.srv.todos", service.Client())
 
 	return func(fn server.HandlerFunc) server.HandlerFunc {
 		return func(ctx context.Context, req server.Request, rsp interface{}) error {

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/micro/go-web"
-	"todos/handler"
+	"github.com/mingz2013/demo-todos-go-micro/web/todos/handler"
 )
 
 func main() {
@@ -24,7 +24,11 @@ func main() {
 	service.Handle("/", http.FileServer(http.Dir("html")))
 
 	// register call handler
-	service.HandleFunc("/example/call", handler.ExampleCall)
+	service.HandleFunc("/todos/list", handler.TodosList)
+	service.HandleFunc("/todos/edit", handler.TodosEdit)
+	service.HandleFunc("/todos/detail", handler.TodosDetail)
+	service.HandleFunc("/todos/add", handler.TodosAdd)
+	service.HandleFunc("/todos/del", handler.TodosDel)
 
 	// run service
 	if err := service.Run(); err != nil {
