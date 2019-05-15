@@ -3,12 +3,30 @@ package main
 import (
 	"github.com/micro/go-log"
 	"github.com/micro/go-micro"
+	"github.com/mingz2013/demo-todos-go-micro/srv/todos/datastore"
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/handler"
 	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/subscriber"
+	"os"
 )
 
+const defaultHost = "localhost:27017"
+
 func main() {
+
+	host := os.Getenv("DB_HOST")
+
+	if host == "" {
+		host = defaultHost
+	}
+
+	session, err := datastore.CreateSession(host)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer session.Close()
+
 	// New Service
 	service := micro.NewService(
 		micro.Name("go.micro.srv.todos"),
