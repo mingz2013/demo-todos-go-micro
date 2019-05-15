@@ -11,9 +11,12 @@ import (
 )
 
 func TodosList(w http.ResponseWriter, r *http.Request) {
+	log.Log("TodosList.....")
+	defer log.Log("todolist....", w)
 	// decode the incoming request as json
 	var request map[string]interface{}
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		log.Log(err)
 		http.Error(w, err.Error(), 500)
 		return
 	}
@@ -22,9 +25,12 @@ func TodosList(w http.ResponseWriter, r *http.Request) {
 	todosClient := pb.NewTodoInterfaceService("go.micro.srv.todos", client.DefaultClient)
 	rsp, err := todosClient.List(r.Context(), &pb.ListReq{})
 	if err != nil {
+		log.Log(err)
 		http.Error(w, err.Error(), 500)
 		return
 	}
+
+	log.Log("TodosList...", "rsp", rsp)
 
 	// we want to augment the response
 	response := map[string]interface{}{
@@ -35,6 +41,7 @@ func TodosList(w http.ResponseWriter, r *http.Request) {
 
 	// encode and write the response as json
 	if err := json.NewEncoder(w).Encode(response); err != nil {
+		log.Log(err)
 		http.Error(w, err.Error(), 500)
 		return
 	}

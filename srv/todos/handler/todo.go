@@ -29,7 +29,7 @@ func (todo *Todo) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) erro
 }
 
 func (todo *Todo) Del(ctx context.Context, req *pb.DelReq, rsp *pb.DelResp) error {
-	log.Log("Todos.Del")
+	log.Log("Todos.Del", req)
 
 	err := services.GetTodosService().Del(req)
 
@@ -46,7 +46,7 @@ func (todo *Todo) Del(ctx context.Context, req *pb.DelReq, rsp *pb.DelResp) erro
 }
 
 func (todo *Todo) Edit(ctx context.Context, req *pb.EditReq, rsp *pb.EditResp) error {
-	log.Log("Todos.Edit")
+	log.Log("Todos.Edit", req)
 
 	err := services.GetTodosService().Edit(req)
 
@@ -78,14 +78,13 @@ func (todo *Todo) List(ctx context.Context, req *pb.ListReq, rsp *pb.ListResp) e
 	rsp.Error = nil
 	rsp.Todos = todos
 
-	return nil
-
 	log.Log(rsp)
+
 	return nil
 }
 
 func (todo *Todo) Detail(ctx context.Context, req *pb.DetailReq, rsp *pb.DetailResp) error {
-	log.Log("Todos.Detail")
+	log.Log("Todos.Detail", req)
 	detail, err := services.GetTodosService().Get(req)
 
 	if err != nil {
@@ -98,8 +97,6 @@ func (todo *Todo) Detail(ctx context.Context, req *pb.DetailReq, rsp *pb.DetailR
 	rsp.Success = true
 	rsp.Error = nil
 	rsp.Todo = detail
-
-	return nil
 
 	log.Log(rsp)
 	return nil

@@ -27,6 +27,9 @@ func main() {
 
 	defer session.Close()
 
+	datastore.CreateRedisClient()
+	defer datastore.GetRedisClient().Close()
+
 	// New Service
 	service := micro.NewService(
 		micro.Name("go.micro.srv.todos"),

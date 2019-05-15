@@ -1,0 +1,1 @@
+curl -XPOST -H 'Content-Type: application/json'  http://localhost:8082/todos/todo/list -d '{}'

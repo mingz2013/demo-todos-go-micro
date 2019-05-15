@@ -30,8 +30,9 @@ services:
   micro-api:
     command: api --handler=rpc
     image: microhq/micro:latest
-    links:
-    - consul
+    restart: always
+    #    links:
+    #    - consul
     #    - todos-api
     ports:
     - "8080:8080"
@@ -42,8 +43,9 @@ services:
   micro-web:
     command: web
     image: microhq/micro:latest
-    links:
-    - consul
+    restart: always
+    #    links:
+    #    - consul
     #    - todos-web
     ports:
     - "8082:8082"
@@ -56,8 +58,8 @@ services:
     build: ./api/todos
     #    ports:
     #    - 50051:50051
-    links:
-    - consul
+    #    links:
+    #    - consul
     #    - todos-srv
     environment:
       MICRO_REGISTRY: "consul"
@@ -68,8 +70,8 @@ services:
     build: ./web/todos
     #    ports:
     #    - 50052:50052
-    links:
-    - consul
+    #    links:
+    #    - consul
     #    - todos-srv
     environment:
       MICRO_REGISTRY: "consul"
@@ -81,15 +83,18 @@ services:
     build: ./srv/todos
     #    ports:
     #    - 50053:50053
-    links:
-    - redis
-    - mongo
-    - consul
+    #    links:
+    #    - redis
+    #    - mongo
+    #    - consul
     environment:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
 
       DB_HOST: "mongo:27017"
+
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
 
 #      MICRO_ADDRESS: ":50053"
 

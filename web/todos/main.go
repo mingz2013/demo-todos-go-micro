@@ -20,17 +20,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// register html handler
-	service.Handle("/", http.FileServer(http.Dir("html")))
+	// register call handler
+	service.HandleFunc("/todo/list", handler.TodosList)
+	service.HandleFunc("/todo/edit", handler.TodosEdit)
+	service.HandleFunc("/todo/detail", handler.TodosDetail)
+	service.HandleFunc("/todo/add", handler.TodosAdd)
+	service.HandleFunc("/todo/del", handler.TodosDel)
 
 	service.Handle("/static", http.FileServer(http.Dir("html/static")))
 
-	// register call handler
-	service.HandleFunc("/todos/list", handler.TodosList)
-	service.HandleFunc("/todos/edit", handler.TodosEdit)
-	service.HandleFunc("/todos/detail", handler.TodosDetail)
-	service.HandleFunc("/todos/add", handler.TodosAdd)
-	service.HandleFunc("/todos/del", handler.TodosDel)
+	// register html handler
+	service.Handle("/", http.FileServer(http.Dir("html")))
+
+	service.HandleFunc("*", http.NotFound)
 
 	// run service
 	if err := service.Run(); err != nil {
