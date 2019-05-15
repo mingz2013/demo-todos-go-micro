@@ -67,11 +67,11 @@ func (todo *Todos) Add(ctx context.Context, req *api.Request, rsp *api.Response)
 		return errors.InternalServerError("go.micro.api.todos.todos.add", err.Error())
 	}
 
-	//b, _ := json.Marshal(response)
+	b, _ := json.Marshal(response)
 
-	//rsp.StatusCode = 200
-	//rsp.Body = string(b)
-	rsp = response
+	rsp.StatusCode = 200
+	rsp.Body = string(b)
+	//rsp = response
 	log.Log(rsp)
 	return nil
 }
@@ -93,11 +93,11 @@ func (todo *Todos) Del(ctx context.Context, req *api.Request, rsp *api.Response)
 		return errors.InternalServerError("go.micro.api.todos.todos.Del", err.Error())
 	}
 
-	//b, _ := json.Marshal(response)
+	b, _ := json.Marshal(response)
 
-	//rsp.StatusCode = 200
-	//rsp.Body = string(b)
-	rsp = response
+	rsp.StatusCode = 200
+	rsp.Body = string(b)
+	//rsp = response
 	log.Log(rsp)
 	return nil
 }
