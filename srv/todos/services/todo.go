@@ -2,7 +2,7 @@ package services
 
 import (
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/dao"
-	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
+	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 )
 
 type TodoService struct {

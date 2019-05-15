@@ -7,7 +7,7 @@ import (
 	"github.com/mingz2013/demo-todos-go-micro/api/todos/client"
 	"github.com/mingz2013/demo-todos-go-micro/api/todos/handler"
 
-	pb "github.com/mingz2013/demo-todos-go-micro/api/todos/proto/todos"
+	pb "github.com/mingz2013/demo-todos-go-micro/api/todos/proto/todo"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 	)
 
 	// Register Handler
-	pb.RegisterTodosHandler(service.Server(), new(handler.Todos))
+	pb.RegisterTodoHandler(service.Server(), new(handler.Todos))
 
 	// Run service
 	if err := service.Run(); err != nil {

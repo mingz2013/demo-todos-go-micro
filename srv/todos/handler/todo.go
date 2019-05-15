@@ -5,13 +5,13 @@ import (
 	"github.com/micro/go-log"
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/services"
 
-	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
+	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 )
 
-type Todos struct {
+type Todo struct {
 }
 
-func (todo *Todos) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) error {
+func (todo *Todo) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) error {
 	log.Log("Todos.Add")
 
 	err := services.GetTodosService().Add(req)
@@ -28,7 +28,7 @@ func (todo *Todos) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) err
 	return nil
 }
 
-func (todo *Todos) Del(ctx context.Context, req *pb.DelReq, rsp *pb.DelResp) error {
+func (todo *Todo) Del(ctx context.Context, req *pb.DelReq, rsp *pb.DelResp) error {
 	log.Log("Todos.Del")
 
 	err := services.GetTodosService().Del(req)
@@ -45,7 +45,7 @@ func (todo *Todos) Del(ctx context.Context, req *pb.DelReq, rsp *pb.DelResp) err
 	return nil
 }
 
-func (todo *Todos) Edit(ctx context.Context, req *pb.EditReq, rsp *pb.EditResp) error {
+func (todo *Todo) Edit(ctx context.Context, req *pb.EditReq, rsp *pb.EditResp) error {
 	log.Log("Todos.Edit")
 
 	err := services.GetTodosService().Edit(req)
@@ -62,7 +62,7 @@ func (todo *Todos) Edit(ctx context.Context, req *pb.EditReq, rsp *pb.EditResp) 
 	return nil
 }
 
-func (todo *Todos) List(ctx context.Context, req *pb.ListReq, rsp *pb.ListResp) error {
+func (todo *Todo) List(ctx context.Context, req *pb.ListReq, rsp *pb.ListResp) error {
 	log.Log("Todos.List")
 
 	todos, err := services.GetTodosService().GetAll()
@@ -84,7 +84,7 @@ func (todo *Todos) List(ctx context.Context, req *pb.ListReq, rsp *pb.ListResp) 
 	return nil
 }
 
-func (todo *Todos) Detail(ctx context.Context, req *pb.DetailReq, rsp *pb.DetailResp) error {
+func (todo *Todo) Detail(ctx context.Context, req *pb.DetailReq, rsp *pb.DetailResp) error {
 	log.Log("Todos.Detail")
 	detail, err := services.GetTodosService().Get(req)
 

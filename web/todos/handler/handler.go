@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/micro/go-micro/client"
-	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
+	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 )
 
 func TodosList(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +19,7 @@ func TodosList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// call the backend service
-	todosClient := pb.NewTodosService("go.micro.srv.todos", client.DefaultClient)
+	todosClient := pb.NewTodoInterfaceService("go.micro.srv.todos", client.DefaultClient)
 	rsp, err := todosClient.List(r.Context(), &pb.ListReq{})
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -49,7 +49,7 @@ func TodosEdit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// call the backend service
-	todosClient := pb.NewTodosService("go.micro.srv.todos", client.DefaultClient)
+	todosClient := pb.NewTodoInterfaceService("go.micro.srv.todos", client.DefaultClient)
 	rsp, err := todosClient.Edit(r.Context(), &pb.EditReq{})
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -79,7 +79,7 @@ func TodosAdd(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// call the backend service
-	todosClient := pb.NewTodosService("go.micro.srv.todos", client.DefaultClient)
+	todosClient := pb.NewTodoInterfaceService("go.micro.srv.todos", client.DefaultClient)
 	rsp, err := todosClient.Add(r.Context(), &pb.AddReq{})
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -109,7 +109,7 @@ func TodosDetail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// call the backend service
-	todosClient := pb.NewTodosService("go.micro.srv.todos", client.DefaultClient)
+	todosClient := pb.NewTodoInterfaceService("go.micro.srv.todos", client.DefaultClient)
 	rsp, err := todosClient.Detail(r.Context(), &pb.DetailReq{})
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -139,7 +139,7 @@ func TodosDel(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// call the backend service
-	todosClient := pb.NewTodosService("go.micro.srv.todos", client.DefaultClient)
+	todosClient := pb.NewTodoInterfaceService("go.micro.srv.todos", client.DefaultClient)
 	rsp, err := todosClient.Del(r.Context(), &pb.DelReq{})
 	if err != nil {
 		http.Error(w, err.Error(), 500)

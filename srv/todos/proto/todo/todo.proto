@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package go.micro.srv.todos;
 
-service Todos {
+service TodoInterface {
     //    rpc Call (Request) returns (Response) {
     //    }
     //    rpc Stream (StreamingRequest) returns (stream StreamingResponse) {

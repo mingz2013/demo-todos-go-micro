@@ -5,7 +5,7 @@ import (
 	"github.com/micro/go-micro"
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/datastore"
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/handler"
-	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
+	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/subscriber"
 	"os"
 )
@@ -37,7 +37,7 @@ func main() {
 	service.Init()
 
 	// Register Handler
-	pb.RegisterTodosHandler(service.Server(), new(handler.Todos))
+	pb.RegisterTodoInterfaceHandler(service.Server(), new(handler.Todo))
 
 	// Register Struct as Subscriber
 	micro.RegisterSubscriber("go.micro.srv.todos", service.Server(), new(subscriber.Example))

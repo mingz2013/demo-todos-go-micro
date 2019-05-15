@@ -4,7 +4,7 @@ GOPATH:=$(shell go env GOPATH)
 
 .PHONY: proto
 proto:
-	protoc --proto_path=${GOPATH}/src:. --micro_out=. --go_out=. proto/todos/todos.proto
+	protoc --proto_path=${GOPATH}/src:. --micro_out=. --go_out=. proto/todo/todo.proto
 
 .PHONY: build
 build: proto

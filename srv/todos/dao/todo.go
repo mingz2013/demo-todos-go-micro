@@ -5,7 +5,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-import pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
+import pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 
 const dbName = "todos"
 const todoCollection = "todo"

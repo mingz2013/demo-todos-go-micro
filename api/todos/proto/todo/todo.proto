@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package go.micro.api.todos;
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Todo {
+    //        rpc Call (go.api.Request) returns (go.api.Response) {
+    //        }
+
+    rpc Add (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Del (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Edit (go.api.Request) returns (go.api.Response) {
+    }
+    rpc List (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Detail (go.api.Request) returns (go.api.Response) {
+    }
+}
+

@@ -1,7 +1,7 @@
 package subscriber
 
 import "context"
-import pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todos"
+import pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 import "github.com/micro/go-log"
 
 type Example struct{}
