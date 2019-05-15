@@ -23,6 +23,8 @@ func main() {
 	// register html handler
 	service.Handle("/", http.FileServer(http.Dir("html")))
 
+	service.Handle("/static", http.FileServer(http.Dir("html/static")))
+
 	// register call handler
 	service.HandleFunc("/todos/list", handler.TodosList)
 	service.HandleFunc("/todos/edit", handler.TodosEdit)

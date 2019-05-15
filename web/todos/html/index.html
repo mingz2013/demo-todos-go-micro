@@ -1,73 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Todos Web</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>demo-todos-vue</title>
+    <link href=./static/css/app.ee0c9b0e19791330161a3cacb64604e3.css rel=stylesheet>
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                Todos Web
-            </a>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <h1>Todos Web</h1>
-            <form class="example">
-                <div class="form-group">
-                    <label>Enter your name</label>
-                    <input type=text class="form-control" id="name" name="name" placeholder="John">
-                </div>
-                <button class="btn btn-default">Submit</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="message"></div>
-        </div>
-    </div>
-</div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
-
-<!-- You may want to store this in a separate file -->
-<script type="text/javascript">
-    $(".example").submit(function (e) {
-        e.preventDefault();
-
-        var url = window.location.href.replace(/\/$/, "") + "/todos/list";
-        var data = $(this).serializeArray()[0];
-        var name = data.value;
-        if (name.length == 0) {
-            name = "John";
-        }
-        ;
-
-        $.ajax({
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json",
-            url: url,
-            data: JSON.stringify({name: name}),
-            success: function (data) {
-                $('.message').html('<h3>' + data.msg + '</h3>');
-            },
-        });
-    });
-</script>
+<div id=app></div>
+<script type=text/javascript src=./static/js/manifest.2ae2e69a05c33dfc65f8.js></script>
+<script type=text/javascript src=./static/js/vendor.9c8d7200094502380894.js></script>
+<script type=text/javascript src=./static/js/app.7c76998ebed60a960306.js></script>
 </body>
 </html>
