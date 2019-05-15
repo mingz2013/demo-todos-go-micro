@@ -32,7 +32,7 @@ services:
     image: microhq/micro:latest
     links:
     - consul
-    - todos-api
+    #    - todos-api
     ports:
     - "8080:8080"
     environment:
@@ -44,7 +44,7 @@ services:
     image: microhq/micro:latest
     links:
     - consul
-    - todos-web
+    #    - todos-web
     ports:
     - "8082:8082"
     environment:
@@ -54,33 +54,33 @@ services:
 
   todos-api:
     build: ./api/todos
-    ports:
-    - 50051:50051
+    #    ports:
+    #    - 50051:50051
     links:
     - consul
-    - todos-srv
+    #    - todos-srv
     environment:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
-      MICRO_ADDRESS: ":50051"
+  #      MICRO_ADDRESS: ":50051"
 
   todos-web:
     build: ./web/todos
-    ports:
-    - 50052:50052
+    #    ports:
+    #    - 50052:50052
     links:
     - consul
-    - todos-srv
+    #    - todos-srv
     environment:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
-      MICRO_ADDRESS: ":50052"
+  #      MICRO_ADDRESS: ":50052"
 
 
   todos-srv:
     build: ./srv/todos
-    ports:
-    - 50053:50053
+    #    ports:
+    #    - 50053:50053
     links:
     - redis
     - mongo
@@ -91,7 +91,7 @@ services:
 
       DB_HOST: "mongo:27017"
 
-      MICRO_ADDRESS: ":50053"
+#      MICRO_ADDRESS: ":50053"
 
 
 
