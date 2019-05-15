@@ -19,8 +19,8 @@ services:
     - /Users/zhaojm/tmp/data:/data
 
   consul:
-    command: -server -bootstrap -rejoin
-    image: progrium/consul:latest
+    image: consul:latest
+    restart: always
     ports:
     - "8300:8300"
     - "8400:8400"
@@ -28,50 +28,57 @@ services:
     - "8600:53/udp"
 
   micro-api:
-    command: --registry_address=consul:8500 api --handler=rpc
+    command: api --handler=rpc
     image: microhq/micro:latest
     links:
     - consul
     - todos-api
     ports:
     - "8080:8080"
+    environment:
+      MICRO_REGISTRY: "consul"
+      MICRO_REGISTRY_ADDRESS: "consul:8500"
 
   micro-web:
-    command: --registry_address=consul:8500 web
+    command: web
     image: microhq/micro:latest
     links:
     - consul
     - todos-web
     ports:
     - "8082:8082"
+    environment:
+      MICRO_REGISTRY: "consul"
+      MICRO_REGISTRY_ADDRESS: "consul:8500"
 
 
   todos-api:
     build: ./api/todos
-    command: --registry_address=consul:8500
     ports:
     - 50051:50051
     links:
     - consul
     - todos-srv
     environment:
+      MICRO_REGISTRY: "consul"
+      MICRO_REGISTRY_ADDRESS: "consul:8500"
       MICRO_ADDRESS: ":50051"
 
   todos-web:
     build: ./web/todos
-    command: --registry_address=consul:8500
     ports:
     - 50052:50052
     links:
     - consul
     - todos-srv
     environment:
+      MICRO_REGISTRY: "consul"
+      MICRO_REGISTRY_ADDRESS: "consul:8500"
       MICRO_ADDRESS: ":50052"
 
 
   todos-srv:
     build: ./srv/todos
-    command: --registry_address=consul:8500
     ports:
     - 50053:50053
     links:
@@ -79,8 +86,13 @@ services:
     - mongo
     - consul
     environment:
-      MICRO_ADDRESS: ":50053"
+      MICRO_REGISTRY: "consul"
+      MICRO_REGISTRY_ADDRESS: "consul:8500"
+
       DB_HOST: "mongo:27017"
+
+      MICRO_ADDRESS: ":50053"
+
 
 
 
