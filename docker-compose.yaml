@@ -37,7 +37,7 @@ services:
     - "8080:8080"
 
   micro-web:
-    command: --registry_address=consul:8500 web --handler=rpc
+    command: --registry_address=consul:8500 web
     image: microhq/micro:latest
     links:
     - consul
