@@ -84,7 +84,7 @@ func (todo *Todo) List(ctx context.Context, req *pb.ListReq, rsp *pb.ListResp) e
 }
 
 func (todo *Todo) Detail(ctx context.Context, req *pb.DetailReq, rsp *pb.DetailResp) error {
-	log.Log("Todos.Detail", req)
+	log.Log("Todos.Detail", "req:", req, "id: ", req.Id)
 	detail, err := services.GetTodosService().Get(req)
 
 	if err != nil {

@@ -10,7 +10,7 @@ import (
 	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 )
 
-type Todos struct {
+type Todo struct {
 }
 
 func extractValue(pair *api.Pair) string {
@@ -24,11 +24,11 @@ func extractValue(pair *api.Pair) string {
 }
 
 // Example.Call is called by the API as /todos/example/call with post body {"name": "foo"}
-func (todo *Todos) List(ctx context.Context, req *api.Request, rsp *api.Response) error {
+func (todo *Todo) List(ctx context.Context, req *api.Request, rsp *api.Response) error {
 	log.Log("Received Todos.List request")
 
 	// extract the client from the context
-	todosClient, ok := client.TodosFromContext(ctx)
+	todosClient, ok := client.TodoFromContext(ctx)
 	if !ok {
 		return errors.InternalServerError("go.micro.api.todos.todos.list", "example client not found")
 	}
@@ -48,11 +48,11 @@ func (todo *Todos) List(ctx context.Context, req *api.Request, rsp *api.Response
 	return nil
 }
 
-func (todo *Todos) Add(ctx context.Context, req *api.Request, rsp *api.Response) error {
+func (todo *Todo) Add(ctx context.Context, req *api.Request, rsp *api.Response) error {
 	log.Log("Received Todos.Add request")
 
 	// extract the client from the context
-	todosClient, ok := client.TodosFromContext(ctx)
+	todosClient, ok := client.TodoFromContext(ctx)
 	if !ok {
 		return errors.InternalServerError("go.micro.api.todos.todos.add", "example client not found")
 	}
@@ -76,11 +76,11 @@ func (todo *Todos) Add(ctx context.Context, req *api.Request, rsp *api.Response)
 	return nil
 }
 
-func (todo *Todos) Del(ctx context.Context, req *api.Request, rsp *api.Response) error {
+func (todo *Todo) Del(ctx context.Context, req *api.Request, rsp *api.Response) error {
 	log.Log("Received Todos.Del request")
 
 	// extract the client from the context
-	todosClient, ok := client.TodosFromContext(ctx)
+	todosClient, ok := client.TodoFromContext(ctx)
 	if !ok {
 		return errors.InternalServerError("go.micro.api.todos.todos.Del", "example client not found")
 	}
@@ -102,11 +102,11 @@ func (todo *Todos) Del(ctx context.Context, req *api.Request, rsp *api.Response)
 	return nil
 }
 
-func (todo *Todos) Edit(ctx context.Context, req *api.Request, rsp *api.Response) error {
+func (todo *Todo) Edit(ctx context.Context, req *api.Request, rsp *api.Response) error {
 	log.Log("Received Todos.Edit request")
 
 	// extract the client from the context
-	todosClient, ok := client.TodosFromContext(ctx)
+	todosClient, ok := client.TodoFromContext(ctx)
 	if !ok {
 		return errors.InternalServerError("go.micro.api.todos.todos.Edit", "example client not found")
 	}
@@ -130,19 +130,22 @@ func (todo *Todos) Edit(ctx context.Context, req *api.Request, rsp *api.Response
 	return nil
 }
 
-func (todo *Todos) Detail(ctx context.Context, req *api.Request, rsp *api.Response) error {
-	log.Log("Received Todos.Detail request")
-
+func (todo *Todo) Detail(ctx context.Context, req *api.Request, rsp *api.Response) error {
+	log.Log("Received Todos.Detail request", "req", req, "post", req.Post, "body", req.Body, "body", req.GetBody(), "post", req.GetPost(), "method", req.Method, "header", req.Header, "url", req.Url, "path", req.Path)
+	log.Log(json.Marshal(req))
 	// extract the client from the context
-	todosClient, ok := client.TodosFromContext(ctx)
+	todosClient, ok := client.TodoFromContext(ctx)
 	if !ok {
 		return errors.InternalServerError("go.micro.api.todos.todos.detail", "example client not found")
 	}
 
 	// make request
-	response, err := todosClient.Detail(ctx, &pb.DetailReq{
+	detailReq := &pb.DetailReq{
 		Id: extractValue(req.Post["id"]),
-	})
+	}
+	log.Log("detailReq", detailReq)
+	response, err := todosClient.Detail(ctx, detailReq)
+
 	if err != nil {
 		return errors.InternalServerError("go.micro.api.todos.todos.detail", err.Error())
 	}

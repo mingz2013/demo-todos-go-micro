@@ -11,13 +11,13 @@ import (
 type exampleKey struct{}
 
 // FromContext retrieves the client from the Context
-func TodosFromContext(ctx context.Context) (pb.TodoInterfaceService, bool) {
+func TodoFromContext(ctx context.Context) (pb.TodoInterfaceService, bool) {
 	c, ok := ctx.Value(exampleKey{}).(pb.TodoInterfaceService)
 	return c, ok
 }
 
 // Client returns a wrapper for the ExampleClient
-func TodosWrapper(service micro.Service) server.HandlerWrapper {
+func TodoWrapper(service micro.Service) server.HandlerWrapper {
 	client := pb.NewTodoInterfaceService("go.micro.srv.todos", service.Client())
 
 	return func(fn server.HandlerFunc) server.HandlerFunc {

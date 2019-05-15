@@ -20,11 +20,11 @@ func main() {
 	// Initialise service
 	service.Init(
 		// create wrap for the Example srv client
-		micro.WrapHandler(client.TodosWrapper(service)),
+		micro.WrapHandler(client.TodoWrapper(service)),
 	)
 
 	// Register Handler
-	pb.RegisterTodoHandler(service.Server(), new(handler.Todos))
+	pb.RegisterTodoHandler(service.Server(), new(handler.Todo))
 
 	// Run service
 	if err := service.Run(); err != nil {
