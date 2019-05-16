@@ -38,7 +38,7 @@ build: proto
 			cd $$f; make build; cd ../../; \
 		done; \
 	done; \
-	cd micro/; make build; cd ../; \
+	cd micro-cors/; make build; cd ../; \
 
 
 

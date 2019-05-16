@@ -34,7 +34,7 @@ services:
     #      --cors-allowed-methods=POST
     #    image: microhq/micro:latest
     #    image: micro-cors
-    build: ./micro
+    build: ./micro-cors
     restart: always
     #    links:
     #    - consul
@@ -56,7 +56,7 @@ services:
     #      --cors-allowed-methods=POST
     #    image: microhq/micro:latest
     #    image: micro-cors
-    build: ./micro
+    build: ./micro-cors
     restart: always
     #    links:
     #    - consul
