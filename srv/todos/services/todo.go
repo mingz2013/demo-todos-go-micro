@@ -16,8 +16,8 @@ func newTodoService() *TodoService {
 	return &TodoService{}
 }
 
-func (s *TodoService) Add(req *pb.AddReq) (pbErr *pb.Error) {
-	todo := &pb.Todo{
+func (s *TodoService) Add(req *pb.AddReq) (todo *pb.Todo, pbErr *pb.Error) {
+	todo = &pb.Todo{
 		Id:      strconv.Itoa(datastore.GetKeyId()),
 		Title:   req.Title,
 		Content: req.Content,
@@ -84,9 +84,9 @@ func (s *TodoService) Edit(req *pb.EditReq) (pbErr *pb.Error) {
 	return
 }
 
-func (s *TodoService) Get(req *pb.DetailReq) (todo pb.Todo, pbErr *pb.Error) {
-	todo, err := dao.GetTodoDao().Get(req.Id)
-	log.Log(todo, err)
+func (s *TodoService) Get(req *pb.DetailReq) (todo *pb.Todo, pbErr *pb.Error) {
+	detail, err := dao.GetTodoDao().Get(req.Id)
+	log.Log(detail, err)
 
 	if err != nil {
 		pbErr = &pb.Error{}
@@ -102,7 +102,7 @@ func (s *TodoService) Get(req *pb.DetailReq) (todo pb.Todo, pbErr *pb.Error) {
 		return
 	}
 
-	return
+	return &detail, nil
 }
 
 func (s *TodoService) GetAll() (todos []*pb.Todo, pbErr *pb.Error) {

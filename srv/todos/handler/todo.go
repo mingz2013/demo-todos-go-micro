@@ -14,7 +14,7 @@ type Todo struct {
 func (todo *Todo) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) error {
 	log.Log("Todos.Add")
 
-	err := services.GetTodosService().Add(req)
+	detail, err := services.GetTodosService().Add(req)
 
 	if err != nil {
 		rsp.Success = false
@@ -24,6 +24,7 @@ func (todo *Todo) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) erro
 
 	rsp.Success = true
 	rsp.Error = nil
+	rsp.Todo = detail
 	return nil
 }
 
@@ -91,7 +92,7 @@ func (todo *Todo) Detail(ctx context.Context, req *pb.DetailReq, rsp *pb.DetailR
 
 	rsp.Success = true
 	rsp.Error = nil
-	rsp.Todo = &detail
+	rsp.Todo = detail
 
 	log.Log("rsp: ", rsp)
 	return nil

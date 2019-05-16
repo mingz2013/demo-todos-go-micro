@@ -69,6 +69,7 @@ message AddReq {
 message AddResp {
     bool success = 1;
     Error error = 2;
+    Todo todo = 3;
 }
 
 message DelReq {
