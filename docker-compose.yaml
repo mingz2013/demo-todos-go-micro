@@ -28,8 +28,13 @@ services:
     - "8600:53/udp"
 
   micro-api:
-    command: api --handler=api
-    image: microhq/micro:latest
+    command: api --handler=api \
+      --cors-allowed-headers=* \
+      --cors-allowed-origins=* \
+      --cors-allowed-methods=POST
+    #    image: microhq/micro:latest
+    #    image: micro-cors
+    build: ./micro
     restart: always
     #    links:
     #    - consul
@@ -40,9 +45,18 @@ services:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
 
+      CORS_ALLOWED_HEADERS: "*"
+      CORS_ALLOWED_ORIGINS: "*"
+      CORS_ALLOWED_METHODS: "POST"
+
   micro-web:
-    command: web
-    image: microhq/micro:latest
+    command: web \
+      --cors-allowed-headers=* \
+      --cors-allowed-origins=* \
+      --cors-allowed-methods=POST
+    #    image: microhq/micro:latest
+    #    image: micro-cors
+    build: ./micro
     restart: always
     #    links:
     #    - consul
@@ -53,9 +67,16 @@ services:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
 
+      CORS_ALLOWED_HEADERS: "*"
+      CORS_ALLOWED_ORIGINS: "*"
+      CORS_ALLOWED_METHODS: "POST"
+
 
   todos-api:
     build: ./api/todos
+    #    command: --cors-allowed-headers=Content-Type \
+    #      --cors-allowed-origins=* \
+    #      --cors-allowed-methods=POST
     #    ports:
     #    - 50051:50051
     #    links:
@@ -65,9 +86,16 @@ services:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
   #      MICRO_ADDRESS: ":50051"
+  #      CORS_ALLOWED_HEADERS: "X-Custom-Header, Content-Type"
+  #      CORS_ALLOWED_ORIGINS: "*"
+  #      CORS_ALLOWED_METHODS: "POST"
 
   todos-web:
     build: ./web/todos
+    #    command: \
+    #      --cors-allowed-headers=Content-Type \
+    #      --cors-allowed-origins=* \
+    #      --cors-allowed-methods=POST
     #    ports:
     #    - 50052:50052
     #    links:
@@ -77,6 +105,9 @@ services:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
   #      MICRO_ADDRESS: ":50052"
+  #      CORS_ALLOWED_HEADERS: "X-Custom-Header, Content-Type"
+  #      CORS_ALLOWED_ORIGINS: "*"
+  #      CORS_ALLOWED_METHODS: "POST"
 
 
   todos-srv:

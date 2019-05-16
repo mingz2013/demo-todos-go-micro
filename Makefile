@@ -48,8 +48,9 @@ build:
 		for f in $$d/*; do \
 			echo $$f; \
 			cd $$f; make build; cd ../../; \
-		done \
-	done
+		done; \
+	done; \
+	cd micro/; make build; cd ../; \
 
 
 docker:
