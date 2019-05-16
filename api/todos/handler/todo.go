@@ -34,7 +34,17 @@ func (todo *Todo) List(ctx context.Context, req *api.Request, rsp *api.Response)
 	}
 
 	// make request
-	response, err := todosClient.List(ctx, &pb.ListReq{})
+	listReq := &pb.ListReq{}
+
+	err := json.Unmarshal([]byte(req.Body), listReq)
+	if err != nil {
+		log.Log(err)
+		return errors.InternalServerError("go.micro.api.todos.todos.list", "body json error")
+	}
+
+	log.Log("listReq", listReq)
+	response, err := todosClient.List(ctx, listReq)
+
 	if err != nil {
 		return errors.InternalServerError("go.micro.api.todos.todos.list", err.Error())
 	}
@@ -49,7 +59,7 @@ func (todo *Todo) List(ctx context.Context, req *api.Request, rsp *api.Response)
 }
 
 func (todo *Todo) Add(ctx context.Context, req *api.Request, rsp *api.Response) error {
-	log.Log("Received Todos.Add request")
+	log.Log("Received Todos.Add request", req)
 
 	// extract the client from the context
 	todosClient, ok := client.TodoFromContext(ctx)
@@ -58,11 +68,20 @@ func (todo *Todo) Add(ctx context.Context, req *api.Request, rsp *api.Response) 
 	}
 
 	// make request
-	response, err := todosClient.Add(ctx, &pb.AddReq{
+	addReq := &pb.AddReq{
 		//Name: extractValue(req.Post["name"]),
-		Title:   extractValue(req.Post["title"]),
-		Content: extractValue(req.Post["content"]),
-	})
+		//Title:   extractValue(req.Post["title"]),
+		//Content: extractValue(req.Post["content"]),
+	}
+
+	err := json.Unmarshal([]byte(req.Body), addReq)
+	if err != nil {
+		log.Log(err)
+		return errors.InternalServerError("go.micro.api.todos.todos.add", "body json error")
+	}
+
+	log.Log("addReq", addReq)
+	response, err := todosClient.Add(ctx, addReq)
 	if err != nil {
 		return errors.InternalServerError("go.micro.api.todos.todos.add", err.Error())
 	}
@@ -86,9 +105,17 @@ func (todo *Todo) Del(ctx context.Context, req *api.Request, rsp *api.Response) 
 	}
 
 	// make request
-	response, err := todosClient.Del(ctx, &pb.DelReq{
-		Id: extractValue(req.Post["id"]),
-	})
+	delReq := &pb.DelReq{}
+
+	err := json.Unmarshal([]byte(req.Body), delReq)
+	if err != nil {
+		log.Log(err)
+		return errors.InternalServerError("go.micro.api.todos.todos.del", "body json error")
+	}
+
+	log.Log("delReq", delReq)
+	response, err := todosClient.Del(ctx, delReq)
+
 	if err != nil {
 		return errors.InternalServerError("go.micro.api.todos.todos.Del", err.Error())
 	}
@@ -112,11 +139,16 @@ func (todo *Todo) Edit(ctx context.Context, req *api.Request, rsp *api.Response)
 	}
 
 	// make request
-	response, err := todosClient.Edit(ctx, &pb.EditReq{
-		Id:      extractValue(req.Post["id"]),
-		Title:   extractValue(req.Post["title"]),
-		Content: extractValue(req.Post["content"]),
-	})
+	reqSrv := &pb.EditReq{}
+
+	err := json.Unmarshal([]byte(req.Body), reqSrv)
+	if err != nil {
+		log.Log(err)
+		return errors.InternalServerError("go.micro.api.todos.todos.Edit", "body json error")
+	}
+
+	log.Log("reqSrv", reqSrv)
+	response, err := todosClient.Edit(ctx, reqSrv)
 	if err != nil {
 		return errors.InternalServerError("go.micro.api.todos.todos.Edit", err.Error())
 	}
@@ -140,11 +172,16 @@ func (todo *Todo) Detail(ctx context.Context, req *api.Request, rsp *api.Respons
 	}
 
 	// make request
-	detailReq := &pb.DetailReq{
-		Id: extractValue(req.Post["id"]),
+	reqSrv := &pb.DetailReq{}
+
+	err := json.Unmarshal([]byte(req.Body), reqSrv)
+	if err != nil {
+		log.Log(err)
+		return errors.InternalServerError("go.micro.api.todos.todos.Detail", "body json error")
 	}
-	log.Log("detailReq", detailReq)
-	response, err := todosClient.Detail(ctx, detailReq)
+
+	log.Log("reqSrv: ", reqSrv)
+	response, err := todosClient.Detail(ctx, reqSrv)
 
 	if err != nil {
 		return errors.InternalServerError("go.micro.api.todos.todos.detail", err.Error())
@@ -155,6 +192,6 @@ func (todo *Todo) Detail(ctx context.Context, req *api.Request, rsp *api.Respons
 	rsp.StatusCode = 200
 	rsp.Body = string(b)
 	//rsp = response
-	log.Log(rsp)
+	log.Log("rsp: ", rsp)
 	return nil
 }

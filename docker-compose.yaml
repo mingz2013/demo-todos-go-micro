@@ -28,7 +28,7 @@ services:
     - "8600:53/udp"
 
   micro-api:
-    command: api --handler=rpc
+    command: api --handler=api
     image: microhq/micro:latest
     restart: always
     #    links:

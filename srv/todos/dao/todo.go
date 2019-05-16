@@ -25,20 +25,23 @@ func (dao *TodoDao) Add(todo *pb.Todo) (err error) {
 }
 
 func (dao *TodoDao) Del(id string) (err error) {
-	log.Log("Del", "id", id)
+	log.Log("Del: ", "id: ", id)
 	err = dao.collection().Remove(bson.M{"id": id})
+	log.Log("Del: err: ", err)
 	return
 }
 
 func (dao *TodoDao) Update(todo *pb.Todo) (err error) {
-	dao.collection().Upsert(bson.M{"id": todo.Id}, bson.M{"$set": todo})
+	log.Log("Update ", "todo: ", todo)
+	err = dao.collection().Update(bson.M{"id": todo.Id}, bson.M{"$set": todo})
+	log.Log("Update: err: ", err)
 	return
 }
 
-func (dao *TodoDao) Get(id string) (todo *pb.Todo, err error) {
-	log.Log("Get", "id", id)
-	err = dao.collection().Find(bson.M{"id": id}).One(todo)
-	log.Log("Get", err)
+func (dao *TodoDao) Get(id string) (todo pb.Todo, err error) {
+	log.Log("Get ", "id: ", id)
+	err = dao.collection().Find(bson.M{"id": id}).One(&todo)
+	log.Log("Get: err: ", err)
 	return
 }
 

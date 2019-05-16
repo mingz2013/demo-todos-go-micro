@@ -18,9 +18,8 @@ func (todo *Todo) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) erro
 
 	if err != nil {
 		rsp.Success = false
-		rsp.Error.Code = 500
-		rsp.Error.Detail = err.Error()
-		return err
+		rsp.Error = err
+		return nil
 	}
 
 	rsp.Success = true
@@ -29,15 +28,14 @@ func (todo *Todo) Add(ctx context.Context, req *pb.AddReq, rsp *pb.AddResp) erro
 }
 
 func (todo *Todo) Del(ctx context.Context, req *pb.DelReq, rsp *pb.DelResp) error {
-	log.Log("Todos.Del", req)
+	log.Log("Todos.Del:-> ", req)
 
 	err := services.GetTodosService().Del(req)
 
 	if err != nil {
 		rsp.Success = false
-		rsp.Error.Code = 500
-		rsp.Error.Detail = err.Error()
-		return err
+		rsp.Error = err
+		return nil
 	}
 
 	rsp.Success = true
@@ -46,15 +44,14 @@ func (todo *Todo) Del(ctx context.Context, req *pb.DelReq, rsp *pb.DelResp) erro
 }
 
 func (todo *Todo) Edit(ctx context.Context, req *pb.EditReq, rsp *pb.EditResp) error {
-	log.Log("Todos.Edit", req)
+	log.Log("Todos.Edit:->", req)
 
 	err := services.GetTodosService().Edit(req)
-
+	log.Log("Todos.Edit:-> err: ", err)
 	if err != nil {
 		rsp.Success = false
-		rsp.Error.Code = 500
-		rsp.Error.Detail = err.Error()
-		return err
+		rsp.Error = err
+		return nil
 	}
 
 	rsp.Success = true
@@ -69,9 +66,8 @@ func (todo *Todo) List(ctx context.Context, req *pb.ListReq, rsp *pb.ListResp) e
 
 	if err != nil {
 		rsp.Success = false
-		rsp.Error.Code = 500
-		rsp.Error.Detail = err.Error()
-		return err
+		rsp.Error = err
+		return nil
 	}
 
 	rsp.Success = true
@@ -84,20 +80,19 @@ func (todo *Todo) List(ctx context.Context, req *pb.ListReq, rsp *pb.ListResp) e
 }
 
 func (todo *Todo) Detail(ctx context.Context, req *pb.DetailReq, rsp *pb.DetailResp) error {
-	log.Log("Todos.Detail", "req:", req, "id: ", req.Id)
+	log.Log("Todos.Detail--> ", " req:", req, " id: ", req.Id, "rsp: ", rsp)
 	detail, err := services.GetTodosService().Get(req)
 
 	if err != nil {
 		rsp.Success = false
-		rsp.Error.Code = 500
-		rsp.Error.Detail = err.Error()
-		return err
+		rsp.Error = err
+		return nil
 	}
 
 	rsp.Success = true
 	rsp.Error = nil
-	rsp.Todo = detail
+	rsp.Todo = &detail
 
-	log.Log(rsp)
+	log.Log("rsp: ", rsp)
 	return nil
 }
