@@ -40,7 +40,7 @@ func (s *TodoService) Add(req *pb.AddReq) (pbErr *pb.Error) {
 func (s *TodoService) Del(req *pb.DelReq) (pbErr *pb.Error) {
 
 	err := dao.GetTodoDao().Del(req.Id)
-
+	log.Log(err)
 	if err != nil {
 		pbErr = &pb.Error{}
 
