@@ -8,7 +8,9 @@
 
 
 ## 架构设计
-
+- 前端vue + iview + vue-router + vuex + axios
+- 后端go-micro，实现三层架构
+- docker-compose部署
 
 
 
