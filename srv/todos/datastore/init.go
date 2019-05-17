@@ -58,16 +58,13 @@ func GetRedisClient() *RedisClient {
 const KEY_ID = "key_id"
 
 func GetKeyId() int {
-	id, err := redisClient.Int(redisClient.Do("get", KEY_ID))
+	id, err := redisClient.Int(redisClient.Do("incr", KEY_ID))
 	if err != nil {
 		id = 1000
 		redisClient.Do("set", KEY_ID, id)
 	}
 	if id < 1000 {
 		id = 1000
-		redisClient.Do("set", KEY_ID, id)
-	} else {
-		id++
 		redisClient.Do("set", KEY_ID, id)
 	}
 

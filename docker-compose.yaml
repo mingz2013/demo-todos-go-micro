@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 services:
 
@@ -36,8 +36,8 @@ services:
     #    image: micro-cors
     build: ./micro-cors
     restart: always
-    #    links:
-    #    - consul
+    links:
+    - consul
     #    - todos-api
     ports:
     - "8080:8080"
@@ -58,8 +58,8 @@ services:
     #    image: micro-cors
     build: ./micro-cors
     restart: always
-    #    links:
-    #    - consul
+    links:
+    - consul
     #    - todos-web
     ports:
     - "8082:8082"
@@ -79,8 +79,8 @@ services:
     #      --cors-allowed-methods=POST
     #    ports:
     #    - 50051:50051
-    #    links:
-    #    - consul
+    links:
+    - consul
     #    - todos-srv
     environment:
       MICRO_REGISTRY: "consul"
@@ -98,8 +98,8 @@ services:
     #      --cors-allowed-methods=POST
     #    ports:
     #    - 50052:50052
-    #    links:
-    #    - consul
+    links:
+    - consul
     #    - todos-srv
     environment:
       MICRO_REGISTRY: "consul"
@@ -114,10 +114,10 @@ services:
     build: ./srv/todos
     #    ports:
     #    - 50053:50053
-    #    links:
-    #    - redis
-    #    - mongo
-    #    - consul
+    links:
+    - redis
+    - mongo
+    - consul
     environment:
       MICRO_REGISTRY: "consul"
       MICRO_REGISTRY_ADDRESS: "consul:8500"
