@@ -5,7 +5,7 @@
 - 展示一条todo
 - 展示todos列表
 - 编辑一条todo
-
+- 删除一条todo
 
 ## 架构设计
 - 前端vue + iview + vue-router + vuex + axios
