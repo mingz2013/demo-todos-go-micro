@@ -1,3 +1,4 @@
+.PHONY: help
 help:
 	@echo '                                                                          '
 	@echo 'Makefile help                                                             '
@@ -21,6 +22,7 @@ help:
 	@echo '                                                                          '
 	@echo '                                                                          '
 
+.PHONY: proto
 proto:
 	for d in api srv; do \
 		for f in $$d/**/proto/*/*.proto; do \
@@ -30,6 +32,7 @@ proto:
 	done
 
 
+.PHONY: build
 build: proto
 	for d in api srv web; do \
 		echo $$d; \
@@ -41,38 +44,43 @@ build: proto
 	cd micro-cors/; make build; cd ../; \
 
 
-
+.PHONY: docker-compose-build
 docker-compose-build: build
 	docker-compose build
 
 
+.PHONY: docker-compose-up
 docker-compose-up:
 	docker-compose up -d
 
 
 
-
+.PHONY: docker-compose-start
 docker-compose-start:
 	docker-compose start
 
 
+.PHONY: docker-compose-stop
 docker-compose-stop:
 	docker-compose stop
 
+
+.PHONY: docker-compose-down
 docker-compose-down:
 	docker-compose down
 
 
-
+.PHONY: docker-compose-ps
 docker-compose-ps:
 	docker-compose ps
 
 
+.PHONY: docker-compose-logs
 docker-compose-logs:
 	docker-compose logs
 
 
-
+.PHONY: docker
 docker:
 	for d in api srv web; do \
 		echo $$d; \
@@ -83,5 +91,6 @@ docker:
 	done
 
 
+.PHONY: run
 run: docker-compose-build docker-compose-up
 
