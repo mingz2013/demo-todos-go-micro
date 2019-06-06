@@ -105,9 +105,9 @@ docker-push:
 	cd micro-cors/; make docker-push; cd ../; \
 
 
-.PYONY: docker-stack-deploy-up
-docker-stack-deploy-up:
-	docker stack deploy up -c docker-compose.yaml
+.PYONY: docker-stack-deploy
+docker-stack-deploy:
+	docker stack deploy todos -c docker-compose.yaml
 
 
 
