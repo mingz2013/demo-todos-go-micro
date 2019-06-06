@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 i=0
-times=50
+times=100
 while  (( $i <= $times ));
 do
 (

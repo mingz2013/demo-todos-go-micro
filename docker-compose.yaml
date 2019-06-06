@@ -29,6 +29,8 @@ services:
 
   micro-api:
     command: --register_ttl=30 --register_interval=15 --client_retries=5 api --handler=api
+    #    --selector=static \
+
     #      --cors-allowed-headers=* \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
@@ -52,6 +54,8 @@ services:
 
   micro-web:
     command: --register_ttl=30 --register_interval=15 --client_retries=5 web
+    #    --selector=static \
+
     #      --cors-allowed-headers=* \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
@@ -78,6 +82,8 @@ services:
     #    build: ./api/todos
     image: mingz2013/todos-api
     command: --register_ttl=30 --register_interval=15 --client_retries=5
+    #    --selector=static \
+
     #    command: --cors-allowed-headers=Content-Type \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
@@ -98,6 +104,8 @@ services:
     #    build: ./web/todos
     image: mingz2013/todos-web
     command: --register_ttl=30 --register_interval=15 --client_retries=5
+    #    --selector=static \
+
     #      --cors-allowed-headers=Content-Type \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
@@ -121,6 +129,8 @@ services:
     #    ports:
     #    - 50053:50053
     command: --register_ttl=30 --register_interval=15 --client_retries=5
+    #    --selector=static \
+
     links:
     - redis
     - mongo
