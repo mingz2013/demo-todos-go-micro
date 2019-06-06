@@ -16,5 +16,10 @@ test:
 	go test -v ./... -cover
 
 .PHONY: docker
-docker:
-	docker build . -t todos-api:latest
+docker: build
+	docker build . -t mingz2013/todos-api:latest
+
+.PHONY: docker-push
+docker-push: docker
+	docker login
+	docker push mingz2013/todos-api

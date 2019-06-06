@@ -7,7 +7,7 @@ help:
 	@echo '   make proto                         编译所有probuf文件                   '
 	@echo '   make build                         构建所有二进制文件                    '
 	@echo '                                                                          '
-	@echo '   make docker-compose-build                        构建所有image       '
+	@echo '   make docker-compose-build                        构建所有image           '
 	@echo '   make docker-compose-up                           创建并启动所有容器       '
 	@echo '   make docker-compose-stop                         停止容器               '
 	@echo '   make docker-compose-start                        启动                   '
@@ -15,7 +15,8 @@ help:
 	@echo '   make docker-compose-ps                           查看状态               '
 	@echo '   make docker-compose-logs                         查看日志              '
 	@echo '                                                                          '
-	@echo '   make docker                        构建所有image，用docker-compose-build替代     '
+	@echo '   make docker                        构建所有image                        '
+	@echo '   make docker-push                        提交所有image                   '
 	@echo '                                                                          '
 	@echo '   make run                           编译并启动容器，build, up             '
 	@echo '                                                                          '
@@ -89,6 +90,25 @@ docker:
 			cd $$f; make docker; cd ../../; \
 		done \
 	done
+	cd micro-cors/; make docker; cd ../; \
+
+
+.PHONY: docker-push
+docker-push:
+	for d in api srv web; do \
+		echo $$d; \
+		for f in $$d/*; do \
+			echo $$f; \
+			cd $$f; make docker-push; cd ../../; \
+		done \
+	done
+	cd micro-cors/; make docker-push; cd ../; \
+
+
+.PYONY: docker-stack-deploy-up
+docker-stack-deploy-up:
+	docker stack deploy up -c docker-compose.yaml
+
 
 
 .PHONY: run

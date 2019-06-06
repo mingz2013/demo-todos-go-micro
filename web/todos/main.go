@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/micro/go-log"
 	"net/http"
+	"time"
 
 	"github.com/micro/go-web"
 	"github.com/mingz2013/demo-todos-go-micro/web/todos/handler"
@@ -12,6 +13,8 @@ func main() {
 	// create new web service
 	service := web.NewService(
 		web.Name("go.micro.web.todos"),
+		web.RegisterTTL(time.Second*30),
+		web.RegisterInterval(time.Second*20),
 		web.Version("latest"),
 	)
 

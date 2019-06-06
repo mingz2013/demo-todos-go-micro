@@ -8,6 +8,7 @@ import (
 	pb "github.com/mingz2013/demo-todos-go-micro/srv/todos/proto/todo"
 	"github.com/mingz2013/demo-todos-go-micro/srv/todos/subscriber"
 	"os"
+	"time"
 )
 
 const defaultHost = "localhost:27017"
@@ -33,6 +34,8 @@ func main() {
 	// New Service
 	service := micro.NewService(
 		micro.Name("go.micro.srv.todos"),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*20),
 		micro.Version("latest"),
 	)
 

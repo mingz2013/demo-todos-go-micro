@@ -17,4 +17,10 @@ test:
 
 .PHONY: docker
 docker:
-	docker build . -t todos-srv:latest
+	docker build . -t mingz2013/todos-srv:latest
+
+
+.PHONY: docker-push
+docker-push: docker
+	docker login
+	docker push mingz2013/todos-srv

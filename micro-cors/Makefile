@@ -7,4 +7,10 @@ build:
 
 .PHONY: docker
 docker:
-	docker build . -t micro-cors:latest
+	docker build . -t mingz2013/micro-cors:latest
+
+
+.PHONY: docker-push
+docker-push: docker
+	docker login
+	docker push mingz2013/micro-cors

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/micro/go-log"
+	"time"
 
 	"github.com/micro/go-micro"
 	"github.com/mingz2013/demo-todos-go-micro/api/todos/client"
@@ -14,6 +15,8 @@ func main() {
 	// New Service
 	service := micro.NewService(
 		micro.Name("go.micro.api.todos"),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*20),
 		micro.Version("latest"),
 	)
 

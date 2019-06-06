@@ -13,4 +13,10 @@ test:
 
 .PHONY: docker
 docker:
-	docker build . -t todos-web:latest
+	docker build . -t mingz2013/todos-web:latest
+
+
+.PHONY: docker-push
+docker-push: docker
+	docker login
+	docker push mingz2013/todos-web

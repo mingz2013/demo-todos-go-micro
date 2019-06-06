@@ -28,13 +28,14 @@ services:
     - "8600:53/udp"
 
   micro-api:
-    command: api --handler=api
+    command: --register_ttl=30 --register_interval=15 --client_retries=5 api --handler=api
     #      --cors-allowed-headers=* \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
     #    image: microhq/micro:latest
     #    image: micro-cors
-    build: ./micro-cors
+    #    build: ./micro-cors
+    image: mingz2013/micro-cors
     restart: always
     links:
     - consul
@@ -50,13 +51,14 @@ services:
       CORS_ALLOWED_METHODS: "POST"
 
   micro-web:
-    command: web
+    command: --register_ttl=30 --register_interval=15 --client_retries=5 web
     #      --cors-allowed-headers=* \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
     #    image: microhq/micro:latest
     #    image: micro-cors
-    build: ./micro-cors
+    #    build: ./micro-cors
+    image: mingz2013/micro-cors
     restart: always
     links:
     - consul
@@ -73,7 +75,9 @@ services:
 
 
   todos-api:
-    build: ./api/todos
+    #    build: ./api/todos
+    image: mingz2013/todos-api
+    command: --register_ttl=30 --register_interval=15 --client_retries=5
     #    command: --cors-allowed-headers=Content-Type \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
@@ -91,8 +95,9 @@ services:
   #      CORS_ALLOWED_METHODS: "POST"
 
   todos-web:
-    build: ./web/todos
-    #    command: \
+    #    build: ./web/todos
+    image: mingz2013/todos-web
+    command: --register_ttl=30 --register_interval=15 --client_retries=5
     #      --cors-allowed-headers=Content-Type \
     #      --cors-allowed-origins=* \
     #      --cors-allowed-methods=POST
@@ -111,9 +116,11 @@ services:
 
 
   todos-srv:
-    build: ./srv/todos
+    #    build: ./srv/todos
+    image: mingz2013/todos-srv
     #    ports:
     #    - 50053:50053
+    command: --register_ttl=30 --register_interval=15 --client_retries=5
     links:
     - redis
     - mongo
