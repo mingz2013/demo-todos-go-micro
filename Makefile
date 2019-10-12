@@ -20,6 +20,7 @@ help:
 	@echo '                                                                          '
 	@echo '   make run                           编译并启动容器，build, up             '
 	@echo '                                                                          '
+	@echo '   make docker-stack-deploy             swarm上部署stack                   '
 	@echo '                                                                          '
 	@echo '                                                                          '
 
